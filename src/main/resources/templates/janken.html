@@ -7,7 +7,20 @@
 </head>
 
 <body>
+  <h1>じゃんけんゲーム!!</h1>
   <div th:if="${name}">Hi [[${name}]]</div>
+
+  <div>
+    <a href="/jankengame?userhand=グー">グー</a>
+    <a href="/jankengame?userhand=チョキ">チョキ</a>
+    <a href="/jankengame?userhand=パー">パー</a>
+  </div>
+
+  <div th:if="${userhand}">
+    <p>あなたの手 [[${userhand}]]</p>
+    <p>相手の手 [[${cpuHand}]]</p>
+    <p>結果 [[${result}]]</p>
+  </div>
 </body>
 
 </html>
