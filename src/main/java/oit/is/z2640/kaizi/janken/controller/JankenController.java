@@ -21,6 +21,7 @@ public class JankenController {
 
   @GetMapping("/jankengame")
   public String jankengame(@RequestParam String userhand, ModelMap model) {
+
     Janken game = new Janken(userhand);
     model.addAttribute("hand",game);
     model.addAttribute("userhand", game.getUserHand());
