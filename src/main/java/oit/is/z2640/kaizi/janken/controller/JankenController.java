@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import oit.is.z2640.kaizi.janken.model.Janken;
+
 @Controller
 public class JankenController {
 
@@ -19,22 +21,12 @@ public class JankenController {
 
   @GetMapping("/jankengame")
   public String jankengame(@RequestParam String userhand, ModelMap model) {
-    String cpuHand = "グー";
-    String result;
 
-    if (userhand.equals(cpuHand)) {
-      result = "引き分け";
-    } else if ((userhand.equals("グー") && cpuHand.equals("チョキ")) ||
-        (userhand.equals("チョキ") && cpuHand.equals("パー")) ||
-        (userhand.equals("パー") && cpuHand.equals("グー"))) {
-      result = "あなたの勝ち";
-    } else {
-      result = "あなたの負け";
-    }
-
-    model.addAttribute("userhand", userhand);
-    model.addAttribute("cpuHand", cpuHand);
-    model.addAttribute("result", result);
+    Janken game = new Janken(userhand);
+    model.addAttribute("hand",game);
+    model.addAttribute("userhand", game.getUserHand());
+    model.addAttribute("cpuHand", game.getCpuHand());
+    model.addAttribute("result", game.getResult());
 
     return "janken.html";
   }
