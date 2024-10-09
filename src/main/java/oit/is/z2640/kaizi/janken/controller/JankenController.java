@@ -23,7 +23,7 @@ public class JankenController {
   public String jankengame(@RequestParam String userhand, ModelMap model) {
 
     Janken game = new Janken(userhand);
-    model.addAttribute("hand",game);
+ 
     model.addAttribute("userhand", game.getUserHand());
     model.addAttribute("cpuHand", game.getCpuHand());
     model.addAttribute("result", game.getResult());
