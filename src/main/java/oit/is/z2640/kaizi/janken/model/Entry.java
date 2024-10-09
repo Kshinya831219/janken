@@ -19,13 +19,16 @@ public class Entry {
     this.users.add(name);
   }
 
-
   public ArrayList<String> getUsers() {
     return users;
   }
 
   public void setUsers(ArrayList<String> users) {
     this.users = users;
+  }
+
+  public int count(){
+    return users.size();
   }
 
 }

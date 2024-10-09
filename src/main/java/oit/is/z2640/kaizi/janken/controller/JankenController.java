@@ -46,7 +46,7 @@ public class JankenController {
     String loginUser = prin.getName();
     this.room.addUser(loginUser);
     model.addAttribute("room", this.room);
-
+    model.addAttribute("usersCount",this.room.count());
     return "janken.html";
   }
 }
