@@ -21,22 +21,24 @@
     <ul>
       <li th:each="user : ${room.users}">[[${user}]]</li>
     </ul>
+    <p>現在の人数:[[${usersCount}]]</p>
   </div>
   <div th:if="${loginUser}">Hi [[${loginUser}]]</div>
   <!-- ユーザーがジャンケンを選択するためのフォーム -->
-  <form action="/jankengame" <h3>手を選んでください：</h3>
-    <ul>
-      <li><a href="/janken/jankengame?userhand=グー">グー</a></li>
-      <li><a href="/janken/jankengame?userhand=チョキ">チョキ</a></li>
-      <li><a href="/janken/jankengame?userhand=パー">パー</a></li>
-    </ul>
 
-    <!-- ジャンケンの結果を表示 -->
-    <div th:if="${userhand}">
-      <p>あなたの手: [[${userhand}]]</p>
-      <p>コンピュータの手: [[${cpuHand}]]</p>
-      <p>結果: [[${result}]]</p>
-    </div>
+  <h3>手を選んでください：</h3>
+  <ul>
+    <li><a href="/janken/jankengame?userhand=グー">グー</a></li>
+    <li><a href="/janken/jankengame?userhand=チョキ">チョキ</a></li>
+    <li><a href="/janken/jankengame?userhand=パー">パー</a></li>
+  </ul>
+
+  <!-- ジャンケンの結果を表示 -->
+  <div th:if="${userhand}">
+    <p>あなたの手: [[${userhand}]]</p>
+    <p>コンピュータの手: [[${cpuHand}]]</p>
+    <p>結果: [[${result}]]</p>
+  </div>
 
 
 </body>
