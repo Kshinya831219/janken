@@ -29,7 +29,7 @@ public class JankenController {
     return "janken.html";
   }
 
-  @GetMapping("/jankengame")
+  @PostMapping("/jankengame")
   public String jankengame(@RequestParam String userhand, ModelMap model) {
 
     Janken game = new Janken(userhand);

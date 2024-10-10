@@ -10,12 +10,10 @@
   <div><a href="/logout">ログアウト</a></div>
 
   <h2>ジャンケンゲーム</h2>
-  <!-- 入室ボタン -->
   <div>
     <a href="/janken/entry">部屋に入る</a>
   </div>
 
-  <!-- 入室したユーザー一覧を表示 -->
   <div th:if="${room}">
     <h3>入室したユーザー</h3>
     <ul>
@@ -24,16 +22,18 @@
     <p>現在の人数:[[${usersCount}]]</p>
   </div>
   <div th:if="${loginUser}">Hi [[${loginUser}]]</div>
-  <!-- ユーザーがジャンケンを選択するためのフォーム -->
 
   <h3>手を選んでください：</h3>
-  <ul>
-    <li><a href="/janken/jankengame?userhand=グー">グー</a></li>
-    <li><a href="/janken/jankengame?userhand=チョキ">チョキ</a></li>
-    <li><a href="/janken/jankengame?userhand=パー">パー</a></li>
-  </ul>
+  <form th:action="@{/janken/jankengame}" method="post">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
-  <!-- ジャンケンの結果を表示 -->
+    <input type="radio" name="userhand" value="グー" id="rock"><label for="rock">グー</label>
+    <input type="radio" name="userhand" value="チョキ" id="scissors"><label for="scissors">チョキ</label>
+    <input type="radio" name="userhand" value="パー" id="paper"><label for="paper">パー</label>
+
+    <button type="submit">じゃんけんぽん！</button>
+  </form>
+
   <div th:if="${userhand}">
     <p>あなたの手: [[${userhand}]]</p>
     <p>コンピュータの手: [[${cpuHand}]]</p>
