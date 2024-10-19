@@ -1,4 +1,4 @@
-CREATE TABLE usrs (
+CREATE TABLE users (
     id IDENTITY,
     name VARCHAR NOT NULL
 );

@@ -10,6 +10,16 @@
   <div><a href="/logout">ログアウト</a></div>
 
   <h2>ジャンケンゲーム</h2>
+
+  <div th:if="${users}">
+    <h3>ユーザーリスト</h3>
+    <ul>
+      <li th:each="user : ${users}">
+        ID: [[${user.id}]], ユーザ名: [[${user.name}]]
+      </li>
+    </ul>
+  </div>
+
   <div>
     <a href="/janken/entry">部屋に入る</a>
   </div>
