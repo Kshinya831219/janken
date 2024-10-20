@@ -12,13 +12,30 @@
   <h2>ジャンケンゲーム</h2>
 
   <div th:if="${users}">
-    <h3>ユーザーリスト</h3>
+    <h3>エントリー</h3>
     <ul>
       <li th:each="user : ${users}">
-        ID: [[${user.id}]], ユーザ名: [[${user.name}]]
+        ユーザ名: [[${user.name}]]
       </li>
     </ul>
   </div>
+  <h2>ジャンケン試合結果</h2>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>プレイヤー1 </th>
+      <th>プレイヤー2 </th>
+      <th>プレイヤー1の手 </th>
+      <th>プレイヤー2の手 </th>
+    </tr>
+    <tr th:each="match : ${matches}">
+      <td th:text="${match.id}"></td>
+      <td th:text="${match.user1}"></td>
+      <td th:text="${match.user2}"></td>
+      <td th:text="${match.user1Hand}"></td>
+      <td th:text="${match.user2Hand}"></td>
+    </tr>
+  </table>
 
   <div>
     <a href="/janken/entry">部屋に入る</a>
