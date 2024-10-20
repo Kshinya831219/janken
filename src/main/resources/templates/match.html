@@ -12,6 +12,26 @@
     <h2>[[${loginUser}]] vs [[${opponent.name}]]</h2>
   </div>
 
+  <h3>手を選んでください：</h3>
+  <form th:action="@{/match/fight}" method="get">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+    <input type="radio" name="userhand" value="グー" id="rock"><label for="rock">グー</label>
+    <input type="radio" name="userhand" value="チョキ" id="scissors"><label for="scissors">チョキ</label>
+    <input type="radio" name="userhand" value="パー" id="paper"><label for="paper">パー</label>
+  
+    <input type="hidden" name="opponentId" th:value="${opponent.id}" />
+
+    <button type="submit">じゃんけんぽん！</button>
+  </form>
+
+  <div th:if="${userhand}">
+    <p>あなたの手: [[${userhand}]]</p>
+    <p>相手の手: [[${cpuHand}]]</p>
+    <p>結果: [[${result}]]</p>
+  </div>
+
+  <a href="/janken/step1">もどる</a>
+
 </body>
 
 </html>

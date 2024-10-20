@@ -48,8 +48,8 @@
     </ul>
     <p>現在の人数:[[${usersCount}]]</p>
   </div>
-  <div th:if="${loginUser}">Hi [[${loginUser}]]</div>
 
+  <h2>練習</h2>
   <h3>手を選んでください：</h3>
   <form th:action="@{/janken/jankengame}" method="post">
     <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
