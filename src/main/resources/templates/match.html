@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Match</title>
+</head>
+
+<body>
+  <h1>試合ページ</h1>
+  <div th:if="${opponent}">
+    <h2>[[${loginUser}]] vs [[${opponent.name}]]</h2>
+  </div>
+
+</body>
+
+</html>

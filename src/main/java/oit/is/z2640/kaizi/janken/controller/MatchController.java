@@ -1,11 +1,8 @@
 package oit.is.z2640.kaizi.janken.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,16 +14,10 @@ import oit.is.z2640.kaizi.janken.model.Janken;
 import oit.is.z2640.kaizi.janken.model.MatchMapper;
 import oit.is.z2640.kaizi.janken.model.User;
 import oit.is.z2640.kaizi.janken.model.UserMapper;
-import oit.is.z2640.kaizi.janken.model.Entry;
-import oit.is.z2640.kaizi.janken.model.Match;
-
 
 @Controller
-@RequestMapping("/janken")
-public class JankenController {
-
-  @Autowired
-  Entry room;
+@RequestMapping("/match")
+public class MatchController {
 
   @Autowired
   UserMapper userMapper;
@@ -34,18 +25,17 @@ public class JankenController {
   @Autowired
   MatchMapper matchMapper;
 
-  @GetMapping("step1")
-  public String janken(ModelMap model, Principal prin) {
+  @GetMapping("/{id}")
+  public String match(@PathVariable int id, Principal prin, ModelMap model) {
+
     String loginUser = prin.getName();
+
     model.addAttribute("loginUser", loginUser);
 
-    ArrayList<User> users = userMapper.AllUsers();
-    model.addAttribute("users", users);
+    User opponent = userMapper.selectById(id);
+    model.addAttribute("opponent", opponent);
 
-    ArrayList<Match> matches = matchMapper.selectAllMatches();
-    model.addAttribute("matches", matches);
-
-    return "janken.html";
+    return "match.html";
   }
 
   @PostMapping("/jankengame")
@@ -57,16 +47,6 @@ public class JankenController {
     model.addAttribute("cpuHand", game.getCpuHand());
     model.addAttribute("result", game.getResult());
 
-    return "janken.html";
+    return "match.html";
   }
-
-  @GetMapping("entry")
-  public String Entry(Principal prin, ModelMap model) {
-    String loginUser = prin.getName();
-    this.room.addUser(loginUser);
-    model.addAttribute("room", this.room);
-    model.addAttribute("usersCount", this.room.count());
-    return "janken.html";
-  }
-
 }
