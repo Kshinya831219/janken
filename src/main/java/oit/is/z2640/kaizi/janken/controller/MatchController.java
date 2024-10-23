@@ -15,6 +15,8 @@ import oit.is.z2640.kaizi.janken.model.MatchMapper;
 import oit.is.z2640.kaizi.janken.model.User;
 import oit.is.z2640.kaizi.janken.model.UserMapper;
 import oit.is.z2640.kaizi.janken.model.Match;
+import oit.is.z2640.kaizi.janken.model.MatchInfoMapper;
+import oit.is.z2640.kaizi.janken.model.MatchInfo;
 
 @Controller
 @RequestMapping("/match")
@@ -25,6 +27,9 @@ public class MatchController {
 
   @Autowired
   MatchMapper matchMapper;
+
+  @Autowired
+  MatchInfoMapper matchInfoMapper;
 
   @GetMapping("/{id}")
   public String match(@PathVariable int id, Principal prin, ModelMap model) {
@@ -42,24 +47,19 @@ public class MatchController {
   @GetMapping("/fight")
   public String fight(@RequestParam String userhand, @RequestParam int opponentId, ModelMap model, Principal prin) {
 
-    Janken game = new Janken(userhand);
-    model.addAttribute("userhand", game.getUserHand());
-    model.addAttribute("cpuHand", game.getCpuHand());
-    model.addAttribute("result", game.getResult());
     String loginUser = prin.getName();
     User user = userMapper.findByName(loginUser);
+  model.addAttribute("loginUser", loginUser);
+    MatchInfo matchInfo = new MatchInfo();
+    matchInfo.setUser1(user.getId());
+    matchInfo.setUser2(opponentId);
+    matchInfo.setUser1Hand(userhand);
+    matchInfo.setIsActive(true);
 
-    Match match = new Match();
+    matchInfoMapper.insertMatchInfo(matchInfo);
 
-    match.setUser1(user.getId());
-    match.setUser2(opponentId);
-    match.setUser1Hand(userhand);
-    match.setUser2Hand(game.getCpuHand());
-    matchMapper.insertMatch(match);
-    User opponent = userMapper.selectById(opponentId);
-    model.addAttribute("opponent", opponent);
-    model.addAttribute("loginUser", loginUser);
+    model.addAttribute("matchInfo", matchInfo);
 
-    return "match.html";
+    return "wait.html";
   }
 }
