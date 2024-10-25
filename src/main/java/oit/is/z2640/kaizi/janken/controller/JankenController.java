@@ -2,6 +2,7 @@ package oit.is.z2640.kaizi.janken.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ import oit.is.z2640.kaizi.janken.model.User;
 import oit.is.z2640.kaizi.janken.model.UserMapper;
 import oit.is.z2640.kaizi.janken.model.Entry;
 import oit.is.z2640.kaizi.janken.model.Match;
+import oit.is.z2640.kaizi.janken.model.MatchInfo;
+import oit.is.z2640.kaizi.janken.model.MatchInfoMapper;
 
 
 @Controller
@@ -34,6 +37,9 @@ public class JankenController {
   @Autowired
   MatchMapper matchMapper;
 
+  @Autowired
+  MatchInfoMapper matchInfoMapper;
+
   @GetMapping("step1")
   public String janken(ModelMap model, Principal prin) {
     String loginUser = prin.getName();
@@ -44,6 +50,9 @@ public class JankenController {
 
     ArrayList<Match> matches = matchMapper.selectAllMatches();
     model.addAttribute("matches", matches);
+
+ ArrayList<MatchInfo> activeMatches = matchInfoMapper.selectAllActiveMatches();
+ model.addAttribute("activeMatches", activeMatches);
 
     return "janken.html";
   }

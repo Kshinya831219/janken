@@ -4,6 +4,38 @@
 <head>
   <meta charset="UTF-8">
   <title>待機画面</title>
+  <script>
+    window.onload = function () {
+      var sse = new EventSource('/match/fight/step9');
+      sse.onmessage = function (event) {
+        console.log("sse.onmessage")
+
+        var match = JSON.parse(event.data);//JSONオブジェクトとしてparse
+        // テーブルのHTMLを生成
+        var match_table = `
+          <tr>
+            <td>${match.user1}</td>
+            <td>${match.user2}</td>
+            <td>${match.user1Hand}</td>
+            <td>${match.user2Hand}</td>
+          </tr>
+        `;
+
+        // tbody に追加
+        var tbody = document.getElementById("match");
+        tbody.innerHTML = match_table;
+        var backLink = document.getElementById("backLink");
+        backLink.style.display = "block";
+
+        console.log(event.data);
+
+      }
+      sse.onerror = function (event) {
+        console.error("Error occurred:", event);
+      }
+
+    }
+  </script>
 </head>
 
 <body>
@@ -12,7 +44,19 @@
     <p>Hi, [[${loginUser}]]</p>
   </div>
   <p>相手の手を待っています...</p>
+  <table id="result" border="1">
+    <thead>
+      <tr>
+        <th>User 1</th>
+        <th>User 2</th>
+        <th>User 1 Hand</th>
+        <th>User 2 Hand</th>
+      </tr>
+    </thead>
+    <tbody id="match"></tbody>
+  </table>
 
+  <a id="backLink" href="/janken/step1" style="display:none;">戻る</a>
 </body>
 
 </html>
